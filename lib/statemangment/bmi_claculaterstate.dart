@@ -17,6 +17,3 @@ class WeightState extends BmiCalculaterState {}
 
 //& The AgeState
 class AgeState extends BmiCalculaterState {}
-
-//@ The BmiCalculaterresultState
-class BmiCalculaterresultState extends BmiCalculaterState {}
