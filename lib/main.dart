@@ -1,5 +1,7 @@
 import 'package:bmicalculater_app/bmicalculater.dart';
+import 'package:bmicalculater_app/statemangment/cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 var kColorscheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 96, 59, 181),
@@ -19,7 +21,9 @@ class Expensemain extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return BlocProvider(
+     create: (context) => BmiCalculaterCubit(),
+      child:  MaterialApp(
         //** DarK theme */
 
         darkTheme: ThemeData.dark().copyWith(
@@ -62,6 +66,7 @@ class Expensemain extends StatelessWidget {
         //? themeMode: ThemeMode.system, (the default)
         home: const BmiCalculater(),
         debugShowCheckedModeBanner: false,
-      );
+      ),
+    );
   }
 }
