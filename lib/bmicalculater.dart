@@ -11,13 +11,6 @@ class BmiCalculater extends StatelessWidget {
   const BmiCalculater({super.key});
   @override
   Widget build(BuildContext context) {
-    //^ The Logic of the Bmi Result
-    double calculateBMI() {
-      double height =
-          BmiCalculaterCubit.get(context).value / 100; // convert cm to meters
-      return BmiCalculaterCubit.get(context).weight /
-          pow(height, 2); // BMI calculation
-    }
     return BlocProvider(
       create: (context) => BmiCalculaterCubit(),
       child: BlocConsumer<BmiCalculaterCubit, BmiCalculaterState>(
@@ -381,10 +374,13 @@ class BmiCalculater extends StatelessWidget {
                 height: 60.0,
                 minWidth: double.infinity,
                 onPressed: () {
-                  double result = calculateBMI();
                   double height = BmiCalculaterCubit.get(context).value / 100;
+                  double result =
+                      BmiCalculaterCubit.get(context).weight / pow(height, 2);
                   String bmiStatus = "";
                   String gender = "";
+                  int age = BmiCalculaterCubit.get(context).age;
+                  double weight = BmiCalculaterCubit.get(context).weight;
                   if (BmiCalculaterCubit.get(context).maleisChecked == false &&
                       BmiCalculaterCubit.get(context).femaleisChecked ==
                           false) {
@@ -447,6 +443,8 @@ class BmiCalculater extends StatelessWidget {
                         gender: gender,
                         bmiStatus: bmiStatus,
                         bmiResult: result,
+                        weight: weight,
+                        age: age,
                       ),
                     ),
                   );

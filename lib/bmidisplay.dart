@@ -8,12 +8,16 @@ class BmiDisplay extends StatelessWidget {
   final String gender;
   final double bmiResult;
   final String bmiStatus;
+  final double weight;
+  final int age;
   const BmiDisplay({
     super.key,
     required this.height,
     required this.gender,
     required this.bmiStatus,
     required this.bmiResult,
+    required this.weight,
+    required this.age,
   });
 
   @override
@@ -57,9 +61,27 @@ class BmiDisplay extends StatelessWidget {
                           color: Colors.redAccent,
                         ),
                       ),
+                       const SizedBox(height: 10),
+                      Text(
+                        'Weight: $weight',
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.redAccent,
+                        ),
+                      ),
+                       const SizedBox(height: 10),
+                      Text(
+                        'Age: $age',
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.redAccent,
+                        ),
+                      ),
                       const SizedBox(height: 10),
                       Text(
-                        'BMI Result: ${bmiResult.round()}',
+                        'BMI Result: ${bmiResult.toStringAsFixed(1)}',
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
