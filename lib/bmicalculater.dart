@@ -18,9 +18,6 @@ class BmiCalculater extends StatelessWidget {
       return BmiCalculaterCubit.get(context).weight /
           pow(height, 2); // BMI calculation
     }
-
-    int age = BmiCalculaterCubit.get(context).age;
-    double weight = BmiCalculaterCubit.get(context).weight;
     return BlocProvider(
       create: (context) => BmiCalculaterCubit(),
       child: BlocConsumer<BmiCalculaterCubit, BmiCalculaterState>(
