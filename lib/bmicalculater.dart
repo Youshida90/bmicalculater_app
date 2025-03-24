@@ -1,8 +1,9 @@
-import 'dart:math';
-
-import 'package:bmicalculater_app/bmidisplay.dart';
 import 'package:bmicalculater_app/statemangment/bmi_claculaterstate.dart';
 import 'package:bmicalculater_app/statemangment/cubit.dart';
+import 'package:bmicalculater_app/widgets/custome_buttom.dart';
+import 'package:bmicalculater_app/widgets/custome_slider.dart';
+import 'package:bmicalculater_app/widgets/gender_containers.dart';
+import 'package:bmicalculater_app/widgets/weight_age_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,448 +16,81 @@ class BmiCalculater extends StatelessWidget {
       create: (context) => BmiCalculaterCubit(),
       child: BlocConsumer<BmiCalculaterCubit, BmiCalculaterState>(
         listener: (context, state) {},
-        builder: (context, state) => Scaffold(
-          backgroundColor: BmiCalculaterCubit.get(context).pColor,
-          appBar: AppBar(
-            backgroundColor: BmiCalculaterCubit.get(context).pColor,
-            title: const Center(
-              child: Text(
-                'BMI Calculater',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
+        builder:
+            (context, state) => Scaffold(
+              backgroundColor: BmiCalculaterCubit.get(context).pColor,
+              appBar: AppBar(
+                backgroundColor: BmiCalculaterCubit.get(context).pColor,
+                title: const Center(
+                  child: Text(
+                    'BMI Calculater',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
                 ),
+              ),
+              body: Column(
+                children: [
+                  //Section 1
+                  GenderContainers(),
+                  //Section 2
+                  CustomeSlider(
+                    height: "Height",
+                    textStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textStyle2: TextStyle(
+                      color: Colors.white,
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textStyle3: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    cm: "cm",
+                    slideractivecolor: Colors.redAccent,
+                    sliderthumbcolor: Colors.redAccent,
+                    min: 80,
+                    max: 270,
+                  ),
+                  //Section 3
+                  WeightAgeContainer(
+                    height: 200,
+                    width: 250,
+                    textStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    weight: "weight",
+                    age: "age",
+                    weightdecrimentheroTag: "weightdecreament",
+                    weightincreamentheroTag: "weightincreament",
+                    incrementbackgroundColor: Colors.redAccent,
+                    decrementbackgroundColor: Colors.redAccent,
+                    incrementicon: Icons.add,
+                    decrementicon: Icons.remove,
+                    ageincreamentheroTag: "ageincreament",
+                    agedecrimentheroTag: "agedecriment",
+                  ),
+                  // ignore: avoid_unnecessary_containers
+                  CustomeButtom(
+                    color: Colors.redAccent,
+                    height: 80,
+                    minWidth: double.infinity,
+                    title: "Calculate",
+                    textStyle: TextStyle(color: Colors.white),
+                  ),
+                ],
               ),
             ),
-          ),
-          body: Column(
-            children: [
-              //Section 1
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        //! Male container
-                        Expanded(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: Container(
-                              height: 200,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: BmiCalculaterCubit.get(context)
-                                        .maleisChecked
-                                    ? Colors.redAccent
-                                    : BmiCalculaterCubit.get(context)
-                                        .sColor, // Change the color based on the checkbox state
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () => BmiCalculaterCubit.get(context)
-                                        .malechnage(),
-                                    child: Container(
-                                      color: BmiCalculaterCubit.get(context)
-                                              .maleisChecked
-                                          ? Colors.redAccent
-                                          : BmiCalculaterCubit.get(context)
-                                              .sColor,
-                                      child: const Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.male,
-                                            size: 120,
-                                            color: Colors.white,
-                                          ),
-                                          Text(
-                                            "Male",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 35),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        //?female container
-                        Expanded(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: Container(
-                              height: 200,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: BmiCalculaterCubit.get(context)
-                                        .femaleisChecked
-                                    ? Colors.redAccent
-                                    : BmiCalculaterCubit.get(context)
-                                        .sColor, // Change the color based on the checkbox state
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () => BmiCalculaterCubit.get(context)
-                                        .femalechange(),
-                                    child: Container(
-                                      color: BmiCalculaterCubit.get(context)
-                                              .femaleisChecked
-                                          ? Colors.redAccent
-                                          : BmiCalculaterCubit.get(context)
-                                              .sColor,
-                                      child: const Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.female,
-                                            size: 120,
-                                            color: Colors.white,
-                                          ),
-                                          Text(
-                                            "Female",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 35),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              //Section 2
-              Expanded(
-                // ignore: avoid_unnecessary_containers
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: BmiCalculaterCubit.get(context).sColor,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "Height",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.baseline,
-                          textBaseline: TextBaseline.alphabetic,
-                          children: [
-                            Text(
-                              BmiCalculaterCubit.get(context)
-                                  .value
-                                  .toInt()
-                                  .toString(),
-                              style: const TextStyle(
-                                  fontSize: 35,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            const Text(
-                              "cm",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        Slider(
-                          activeColor: Colors.redAccent,
-                          thumbColor: Colors.redAccent,
-                          value: BmiCalculaterCubit.get(context).value,
-                          min: 80,
-                          max: 270,
-                          onChanged: (double newvalue) {
-                            BmiCalculaterCubit.get(context)
-                                .heightchange(newvalue);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              //Section 3
-              Expanded(
-                // ignore: avoid_unnecessary_containers
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: Container(
-                                height: 200,
-                                width: 250,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: BmiCalculaterCubit.get(context).sColor,
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      "Weight",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 40,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      BmiCalculaterCubit.get(context)
-                                          .weight
-                                          .toString(),
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 40,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        FloatingActionButton(
-                                          heroTag: "weightdecreament",
-                                          onPressed: () {
-                                            if (BmiCalculaterCubit.get(context)
-                                                    .weight <=
-                                                5) {
-                                              return;
-                                            } else {
-                                              BmiCalculaterCubit.get(context)
-                                                  .weightchangedecreament();
-                                            }
-                                          },
-                                          backgroundColor: Colors.redAccent,
-                                          child: const Icon(Icons.remove),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        FloatingActionButton(
-                                          heroTag: "weightincreament",
-                                          onPressed: () {
-                                            BmiCalculaterCubit.get(context)
-                                                .weightchangeincreament();
-                                          },
-                                          backgroundColor: Colors.redAccent,
-                                          child: const Icon(Icons.add),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 20),
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: Container(
-                                height: 200,
-                                width: 250,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: BmiCalculaterCubit.get(context).sColor,
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      "Age",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 40,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      BmiCalculaterCubit.get(context)
-                                          .age
-                                          .toString(),
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 40,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        FloatingActionButton(
-                                          heroTag: "Agedecreament",
-                                          onPressed: () {
-                                            if (BmiCalculaterCubit.get(context)
-                                                    .age <=
-                                                1) {
-                                              return;
-                                            } else {
-                                              BmiCalculaterCubit.get(context)
-                                                  .agechangedecreament();
-                                            }
-                                          },
-                                          backgroundColor: Colors.redAccent,
-                                          child: const Icon(Icons.remove),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        FloatingActionButton(
-                                          heroTag: "Ageincreament",
-                                          onPressed: () {
-                                            BmiCalculaterCubit.get(context)
-                                                .agechangeincreament();
-                                          },
-                                          backgroundColor: Colors.redAccent,
-                                          child: const Icon(Icons.add),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              // ignore: avoid_unnecessary_containers
-              Container(
-                  child: MaterialButton(
-                color: Colors.redAccent,
-                height: 60.0,
-                minWidth: double.infinity,
-                onPressed: () {
-                  double height = BmiCalculaterCubit.get(context).value / 100;
-                  double result =
-                      BmiCalculaterCubit.get(context).weight / pow(height, 2);
-                  String bmiStatus = "";
-                  String gender = "";
-                  int age = BmiCalculaterCubit.get(context).age;
-                  double weight = BmiCalculaterCubit.get(context).weight;
-                  if (BmiCalculaterCubit.get(context).maleisChecked == false &&
-                      BmiCalculaterCubit.get(context).femaleisChecked ==
-                          false) {
-                    // show error message
-                    showDialog(
-                      context: context,
-                      builder: (ctx) => AlertDialog(
-                        title: const Text('Invalid input'),
-                        content: const Text('Please choose your gender'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(ctx);
-                            },
-                            child: const Text('Okay'),
-                          ),
-                        ],
-                      ),
-                    );
-                    return;
-                  } else {
-                    if (BmiCalculaterCubit.get(context).age <= 19) {
-                      // For children and teenagers
-                      if (result < 5) {
-                        bmiStatus = "Underweight";
-                      } else if (result >= 5 && result < 85) {
-                        bmiStatus = "Normal";
-                      } else if (result >= 85 && result < 95) {
-                        bmiStatus = "Overweight";
-                      } else if (result >= 95) {
-                        bmiStatus = "Obese";
-                      }
-                    } else {
-                      // For adults
-                      if (result < 18.5) {
-                        bmiStatus = "Underweight";
-                      } else if (result >= 18.5 && result <= 24.9) {
-                        bmiStatus = "Normal";
-                      } else if (result >= 25 && result <= 29.9) {
-                        bmiStatus = "Overweight";
-                      } else if (result >= 30) {
-                        bmiStatus = "Obese";
-                      }
-                    }
-
-                    if (BmiCalculaterCubit.get(context).maleisChecked == true) {
-                      gender = "Male";
-                    } else if (BmiCalculaterCubit.get(context)
-                            .femaleisChecked ==
-                        true) {
-                      gender = "Female";
-                    }
-                  }
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BmiDisplay(
-                        height: height,
-                        gender: gender,
-                        bmiStatus: bmiStatus,
-                        bmiResult: result,
-                        weight: weight,
-                        age: age,
-                      ),
-                    ),
-                  );
-                },
-                child: const Text(
-                  "Calculate",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ))
-            ],
-          ),
-        ),
       ),
     );
   }
