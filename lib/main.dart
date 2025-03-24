@@ -1,16 +1,8 @@
 import 'package:bmicalculater_app/bmicalculater.dart';
+import 'package:bmicalculater_app/core/constants/themes.dart';
 import 'package:bmicalculater_app/statemangment/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-var kColorscheme = ColorScheme.fromSeed(
-  seedColor: const Color.fromARGB(255, 96, 59, 181),
-);
-
-var kDarkColorScheme = ColorScheme.fromSeed(
-  brightness: Brightness.dark,
-  seedColor: const Color.fromARGB(255, 5, 99, 125),
-);
 
 void main() async {
   runApp(const Expensemain());
@@ -22,44 +14,40 @@ class Expensemain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-     create: (context) => BmiCalculaterCubit(),
-      child:  MaterialApp(
+      create: (context) => BmiCalculaterCubit(),
+      child: MaterialApp(
         //** DarK theme */
-
         darkTheme: ThemeData.dark().copyWith(
-          colorScheme: kDarkColorScheme,
+          colorScheme: Themes().kDarkColorScheme,
           cardTheme: const CardTheme().copyWith(
-            color: kDarkColorScheme.primaryContainer,
-            shadowColor: kDarkColorScheme.error,
-            surfaceTintColor: kDarkColorScheme.error,
-            margin: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 8,
-            ),
+            color: Themes().kDarkColorScheme.primaryContainer,
+            shadowColor: Themes().kDarkColorScheme.error,
+            surfaceTintColor: Themes().kDarkColorScheme.error,
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-              backgroundColor: kDarkColorScheme.primaryContainer,
-              foregroundColor: kDarkColorScheme.onPrimaryContainer,
+              backgroundColor: Themes().kDarkColorScheme.primaryContainer,
+              foregroundColor: Themes().kDarkColorScheme.onPrimaryContainer,
             ),
           ),
         ),
 
         //! Use this way to style not from Scratch
         theme: ThemeData().copyWith(
-          colorScheme: kColorscheme,
+          colorScheme: Themes().kColorscheme,
           appBarTheme: const AppBarTheme().copyWith(
-            backgroundColor: kColorscheme.primary,
-            foregroundColor: kColorscheme.onPrimary,
+            backgroundColor: Themes().kColorscheme.primary,
+            foregroundColor: Themes().kColorscheme.onPrimary,
           ),
           cardTheme: const CardTheme().copyWith(
-            shadowColor: kColorscheme.error,
-            surfaceTintColor: kColorscheme.error,
+            shadowColor: Themes().kColorscheme.error,
+            surfaceTintColor: Themes().kColorscheme.error,
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-              backgroundColor: kColorscheme.primaryContainer,
+              backgroundColor: Themes().kColorscheme.primaryContainer,
             ),
           ),
         ),
